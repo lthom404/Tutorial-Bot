@@ -1,0 +1,48 @@
+const Discord = require("discord.js")
+const botconfig = require("../../botconfig.json")
+const prefix = botconfig.prefix
+
+module.exports.run = async (bot,message, args) => {
+       message.delete();
+        if(args[0] == "help") return message.channel.send(`Just do ${prefix}help instead.`).then(m => m.delete({timeout: 5000}))
+
+        if(args[0]) {
+            let command = args[0];
+            if(bot.commands.has(command)) {
+                command = bot.commands.get(command);
+                var SHembed = new Discord.MessageEmbed()
+                .setColor("CYAN")
+                .setAuthor("Tutorial Bot Help", message.guild.iconURL())
+                .setThumbnail(bot.user.displayAvatarURL())
+                .setDescription(`The Bot Prefix Is: ${prefix}\n\n**>Command:** ${command.config.name}\n**>Description:** ${command.config.description || "No Description"}\n**>Usage:** ${command.config.usage || "No Usage"}\n**>Accessable By:** ${command.config.accessableby || "Members"}\n**>Aliases:** ${command.config.noalias || command.config.aliases}`)
+                .setFooter("Tutorial Bot 2K20", bot.user.displayAvatarURL())
+                message.channel.send(SHembed)
+            }}
+        
+            if(!args[0]) {
+                let embed = new Discord.MessageEmbed()
+                .setAuthor(`Help Command!` , message.guild.iconURL())
+                .setColor("#5378c8")
+                .setDescription(`${message.author.username} check your dms!`)
+
+                let Sembed = new Discord.MessageEmbed()
+                .setColor("#5378c8")
+                .setAuthor(`Tutorial Bot Help` , message.guild.iconURL())
+                .setThumbnail(bot.user.displayAvatarURL())
+                .setTimestamp()
+                .setDescription(`These are the available commands for the Tutorial Bot\nThe Bot Prefix Is: ${prefix}`)
+                .addField(`Commands:` , "``serverinfo`` ``userinfo`` ``say`` ``ping`` ``uptime`` ``cat`` ``dog`` ``avatar``" )
+                .setFooter("Tutorial Bot 2K20", bot.user.displayAvatarURL())
+                message.channel.send(embed).then(m => m.delete({timeout: 10000}))
+                message.author.send(Sembed)
+            }
+    }
+
+
+module.exports.config = {
+    name: "help",
+    aliases: ["h" , "halp" , "commands"],
+    usage: "=help | =help <command> ",
+    description: "This command shows all the commands.",
+    accessableby: "Members"
+}

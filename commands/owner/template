@@ -1,0 +1,15 @@
+const Discord = require("discord.js")
+const botconfig = require("../botconfig.json")
+
+module.exports.run = async (bot,message, args) => {
+    message.delete();    
+    
+    }
+
+module.exports.config = {
+    name: " ",
+    aliases: [" "],
+    description: "",
+    usage: "",
+    accessableby: "Members"
+}
